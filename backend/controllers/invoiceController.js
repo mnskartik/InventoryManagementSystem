@@ -1,7 +1,7 @@
 const Invoice = require("../models/Invoice");
 
 // ✅ Get invoices of logged-in user only
-exports.getInvoices = async (req, res) => {
+const getInvoices = async (req, res) => {
   try {
     const invoices = await Invoice.find({ user: req.user.id })
       .populate("items.product");
@@ -12,7 +12,7 @@ exports.getInvoices = async (req, res) => {
 };
 
 // ✅ Create invoice linked to logged-in user
-exports.createInvoice = async (req, res) => {
+const createInvoice  = async (req, res) => {
   try {
     const invoice = new Invoice({
       ...req.body,
@@ -26,7 +26,7 @@ exports.createInvoice = async (req, res) => {
 };
 
 // ✅ Update invoice only if it belongs to user
-exports.updateInvoice = async (req, res) => {
+const updateInvoice = async (req, res) => {
   try {
     const invoice = await Invoice.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
@@ -41,7 +41,7 @@ exports.updateInvoice = async (req, res) => {
 };
 
 // ✅ Delete invoice only if it belongs to user
-exports.deleteInvoice = async (req, res) => {
+const deleteInvoice = async (req, res) => {
   try {
     const invoice = await Invoice.findOneAndDelete({
       _id: req.params.id,
@@ -55,7 +55,7 @@ exports.deleteInvoice = async (req, res) => {
 };
 
 // ✅ Update status only if it belongs to user
-exports.updateStatus = async (req, res) => {
+const updateStatus = async (req, res) => {
   try {
     const invoice = await Invoice.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
@@ -68,3 +68,20 @@ exports.updateStatus = async (req, res) => {
     res.status(500).json({ message: "Error updating status", error: err.message });
   }
 };
+
+
+module.exports = {
+  getInvoices,
+  createInvoice,
+  updateInvoice,
+  deleteInvoice,
+  updateStatus,
+};
+
+console.log("Loaded controller functions:", {
+  getInvoices,
+  createInvoice,
+  updateInvoice,
+  deleteInvoice,
+  updateStatus,
+});
