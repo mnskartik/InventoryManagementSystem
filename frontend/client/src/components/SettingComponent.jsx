@@ -26,9 +26,12 @@ const SettingComponent = ({ user, setUser }) => {
 
     const fetchAccounts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/users/accounts", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/users/accounts`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
         setAccounts(res.data);
       } catch (error) {
         console.error("Error fetching accounts:", error);
@@ -46,7 +49,7 @@ const SettingComponent = ({ user, setUser }) => {
   const handleSaveProfile = async () => {
   try {
     const res = await axios.put(
-      "http://localhost:5000/api/auth/update",
+      `${process.env.REACT_APP_API_URL}/auth/update`,
       {
         name: profile.name,
         email: profile.email,
@@ -83,7 +86,7 @@ const SettingComponent = ({ user, setUser }) => {
   const handleDeleteAccount = async (email) => {
   try {
     await axios.delete(
-      `http://localhost:5000/api/users/accounts/${email}`,
+      `${process.env.REACT_APP_API_URL}/users/accounts/${email}`,
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }

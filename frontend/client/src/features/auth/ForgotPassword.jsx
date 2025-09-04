@@ -13,10 +13,10 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
-    
-    // ✅ Redirect user to OTP page with email
-    navigate("/otp", { state: { email } });
+    await axios.post(
+  `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
+  { email }
+);
   } catch (err) {
     setMessage(err.response?.data?.msg || "Failed to send OTP");
   }

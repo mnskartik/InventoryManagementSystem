@@ -23,10 +23,14 @@ const OTPComponent = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/verify-otp", {
-        email,
-        otp,
-      });
+      const res = await axios.post(
+  `${process.env.REACT_APP_API_URL}/auth/verify-otp`,
+  {
+    email,
+    otp,
+  }
+);
+
 
       setMessage(res.data.msg || "OTP verified successfully!");
       navigate("/reset-password", { state: { email } });

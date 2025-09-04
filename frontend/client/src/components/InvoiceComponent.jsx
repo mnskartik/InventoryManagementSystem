@@ -39,7 +39,7 @@ const InvoiceComponent = () => {
   const fetchInvoices = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/invoices");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/invoices`);
       setInvoices(res.data);
     } catch (err) {
       console.error("Error fetching invoices:", err);
@@ -57,11 +57,9 @@ const InvoiceComponent = () => {
         return;
       }
 
-      const res = await axios.get("http://localhost:5000/api/products", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/products`, {
+  headers: { Authorization: `Bearer ${token}` },
+});
       setProducts(res.data || []);
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -109,13 +107,13 @@ const InvoiceComponent = () => {
       };
 
       if (isEditing && currentInvoice._id) {
-        await axios.put(`http://localhost:5000/api/invoices/${currentInvoice._id}`, invoiceData);
+        await axios.put(`${process.env.REACT_APP_API_URL}/invoices/${currentInvoice._id}`, invoiceData);
         alert("Invoice updated successfully!");
       } else {
-        await axios.post("http://localhost:5000/api/invoices", {
-          ...invoiceData,
-          referenceNumber: generateReferenceNumber()
-        });
+        axios.post(`${process.env.REACT_APP_API_URL}/invoices`, {
+  ...invoiceData,
+  referenceNumber: generateReferenceNumber()
+});
         alert("Invoice created successfully!");
       }
 
@@ -130,7 +128,7 @@ const InvoiceComponent = () => {
   const handleDeleteInvoice = async (id) => {
     if (!window.confirm("Are you sure you want to delete this invoice?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/invoices/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/invoices/${id}`);
       setInvoices(invoices.filter((inv) => inv._id !== id));
       alert("Invoice deleted successfully!");
     } catch (err) {
@@ -148,9 +146,9 @@ const InvoiceComponent = () => {
         )
       );
 
-      const res = await axios.patch(`http://localhost:5000/api/invoices/${id}/status`, {
-        status,
-      });
+      const res =await axios.patch(`${process.env.REACT_APP_API_URL}/invoices/${id}/status`, {
+  status,
+});
 
       // Verify the response and update with actual data from server
       if (res.data && res.data.invoice) {

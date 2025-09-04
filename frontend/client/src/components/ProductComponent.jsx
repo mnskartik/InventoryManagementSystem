@@ -39,7 +39,7 @@ const ProductComponent = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/products`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setProducts(res.data.products || res.data);
@@ -62,9 +62,11 @@ const ProductComponent = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/products/${productId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(`${process.env.REACT_APP_API_URL}/products/${productId}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
         fetchProducts();
       } catch (err) {
         console.error("Error deleting product:", err.response?.data || err.message);
@@ -106,10 +108,18 @@ const ProductComponent = () => {
       };
 
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/products/${currentProduct._id}`, formData, config);
-      } else {
-        await axios.post("http://localhost:5000/api/products", formData, config);
-      }
+  await axios.put(
+    `${process.env.REACT_APP_API_URL}/products/${currentProduct._id}`,
+    formData,
+    config
+  );
+} else {
+  await axios.post(
+    `${process.env.REACT_APP_API_URL}/products`,
+    formData,
+    config
+  );
+}
 
       fetchProducts();
 
@@ -152,7 +162,7 @@ const ProductComponent = () => {
       return URL.createObjectURL(selectedFile);
     }
     if (currentProduct.image) {
-      return `http://localhost:5000${currentProduct.image}`;
+      return `${process.env.REACT_APP_API_URL}${currentProduct.image}`;
     }
     return null;
   };
