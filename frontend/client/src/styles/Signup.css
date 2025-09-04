@@ -1,0 +1,148 @@
+/* Page Layout */
+.signup-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* Left Section (Form) */
+.signup-form-section {
+  width: 50%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 380px;
+}
+
+.signup-form h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.signup-form p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.signup-form input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.signup-form input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Button */
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  background: #111827;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 5px;
+}
+
+.signup-button:hover {
+  background: #1f2937;
+}
+
+/* Bottom text */
+.signup-form p.bottom-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+  color: #6b7280;
+}
+
+.signup-form p.bottom-text a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.signup-form p.bottom-text a:hover {
+  text-decoration: underline;
+}
+
+/* Right Section (Illustration) */
+.signup-illustration {
+  width: 50%;
+  background: #1f1f2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  padding: 40px;
+}
+
+.signup-illustration h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.signup-illustration p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #cbd5e1;
+}
+
+.signup-illustration img {
+  max-width: 420px;
+  width: 100%;
+}
+
+.signup-message {
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: center;
+  color: green;
+}
+
+/* ========================= */
+/* 📱 Mobile Responsive Fix  */
+/* ========================= */
+@media (max-width: 768px) {
+  .signup-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .signup-form-section {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .signup-form {
+    max-width: 100%;
+  }
+
+  .signup-illustration {
+    display: none; /* hide illustration on mobile */
+  }
+}
